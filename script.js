@@ -8,5 +8,3 @@ return;
 
 window.location.href="sonuc.html?u="+user;
 }
-
-
