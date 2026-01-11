@@ -3,150 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bukogram - Modern Analiz</title>
+    <title>Bukogram - Analiz & Simülasyon</title>
     <style>
-        /* TÜM TASARIM BURADA */
+        /* TASARIM (CSS) */
         body {
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* İstediğin Instagram Renkli Arka Plan */
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             font-family: 'Segoe UI', Arial, sans-serif;
             overflow: hidden;
         }
 
         .kutu {
-            background: rgba(18, 18, 18, 0.95); /* Koyu Modern Kutu */
-            padding: 40px;
-            border-radius: 30px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 35px;
+            border-radius: 25px;
+            width: 330px;
             text-align: center;
-            width: 320px;
             color: white;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
             border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
         }
 
-        .logo {
-            font-size: 40px;
-            font-weight: 800;
-            margin: 0;
-            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
+        .logo { font-size: 38px; font-weight: bold; color: #fdf497; margin: 0 0 5px 0; }
         .alt { font-size: 13px; opacity: 0.7; margin-bottom: 25px; }
 
         input {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
+            margin-bottom: 15px;
+            border-radius: 12px;
             border: 1px solid #333;
-            border-radius: 15px;
-            background: #252525;
+            background: #1a1a1a;
             color: white;
-            font-size: 16px;
             box-sizing: border-box;
             outline: none;
-            margin-bottom: 15px;
         }
 
         button {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             border: none;
-            color: white;
-            font-size: 16px;
+            border-radius: 12px;
             font-weight: bold;
-            border-radius: 15px;
             cursor: pointer;
+            margin-top: 10px;
             transition: 0.3s;
-            background: linear-gradient(45deg, #f09433, #dc2743);
-            margin-bottom: 10px;
+            font-size: 15px;
         }
 
-        button:hover { transform: scale(1.03); }
+        .mavi { background: #0095f6; color: white; }
+        .yesil { background: #00c853; color: white; }
+        
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .yesil { 
-            background: linear-gradient(45deg, #00c853, #b2ff59); 
-            color: #000; 
+        .yukleme-alani {
+            display: none;
+            margin: 20px 0;
         }
 
-        .loading-bar {
-            width: 100%; height: 6px; background: #333; border-radius: 10px;
-            margin: 20px 0; display: none; overflow: hidden;
-        }
-        .progress {
-            width: 0%; height: 100%; background: #bc1888; transition: width 0.3s;
+        .bar-dis {
+            width: 100%;
+            height: 100%;
+            background: #333;
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
         }
 
-        #sonuc-ekrani { display: none; }
-        .sonuc-kart { 
-            background: rgba(255,255,255,0.05); 
-            padding: 15px; 
-            border-radius: 15px; 
+        .bar-ic {
+            width: 0%;
+            height: 100%;
+            background: #fdf497;
+            transition: width 0.2s;
+        }
+
+        #sonuc {
+            display: none;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
             text-align: left;
-            border-left: 4px solid #f09433;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
 <div class="kutu">
-    <div id="ana-ekran">
-        <h1 class="logo">Bukogram</h1>
-        <p class="alt">Instagram Analiz & Simülasyon</p>
-        
-        <input type="text" id="username" placeholder="Instagram kullanıcı adı">
-        
-        <div class="loading-bar" id="lBar">
-            <div class="progress" id="pBar"></div>
-        </div>
+    <h1 class="logo">Bukogram</h1>
+    <p class="alt">Instagram Analiz Servisi</p>
 
-        <button onclick="calistir()">ANALİZ ET</button>
-        <button class="yesil" onclick="alert('Takipçi gönderimi simüle ediliyor...')">TAKİPÇİ GÖNDER</button>
+    <input type="text" id="kadi" placeholder="Instagram kullanıcı adı">
+
+    <div class="yukleme-alani" id="loading">
+        <p id="durum-yazisi" style="font-size: 12px; margin-bottom: 5px;">İşlem yapılıyor...</p>
+        <div class="bar-dis">
+            <div class="bar-ic" id="pBar"></div>
+        </div>
     </div>
 
-    <div id="sonuc-ekrani">
-        <h1 class="logo">Bukogram</h1>
-        <h2 id="sergilenen-ad" style="color: #fdf497; margin-bottom: 20px;"></h2>
-        <div class="sonuc-kart">
-            <p>📊 Etkileşim: <span id="e-oran">%0</span></p>
-            <p>🔥 Profil Gücü: <span id="p-guc">%0</span></p>
-            <p>✅ Durum: <span style="color: #00c853;">Aktif</span></p>
-        </div>
-        <button style="margin-top: 20px;" onclick="location.reload()">YENİ ANALİZ</button>
-    </div>
+    <div id="sonuc"></div>
+
+    <button class="mavi" id="btnAnaliz" onclick="islemYap('analiz')">ANALİZ ET</button>
+    <button class="yesil" id="btnTakipci" onclick="islemYap('takipci')">TAKİPÇİ GÖNDER</button>
 </div>
 
 <script>
-    function calistir() {
-        const user = document.getElementById("username").value;
-        if(!user) { alert("Lütfen kullanıcı adı girin!"); return; }
+    function islemYap(tip) {
+        let kadi = document.getElementById("kadi").value;
+        if(!kadi) { alert("Lütfen kullanıcı adı girin!"); return; }
 
-        document.getElementById("lBar").style.display = "block";
-        let p = document.getElementById("pBar");
-        let w = 0;
+        // Ekranı hazırla
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("sonuc").style.display = "none";
+        document.getElementById("btnAnaliz").disabled = true;
+        document.getElementById("btnTakipci").disabled = true;
+
+        let pBar = document.getElementById("pBar");
+        let durum = document.getElementById("durum-yazisi");
+        let genislik = 0;
+
+        let mesajlar = tip === 'analiz' 
+            ? ["Veriler çekiliyor...", "Profil taranıyor...", "Algoritma hesaplıyor...", "Tamamlanıyor!"]
+            : ["Sunucuya bağlanılıyor...", "Paket hazırlanıyor...", "Takipçiler aktarılıyor...", "Onay bekliyor..."];
 
         let interval = setInterval(() => {
-            w += 10;
-            p.style.width = w + "%";
-            if(w >= 100) {
-                clearInterval(interval);
-                goster(user);
+            genislik += 2;
+            pBar.style.width = genislik + "%";
+
+            // Rastgele mesaj değiştirme
+            if(genislik % 25 === 0) {
+                durum.innerText = mesajlar[Math.floor(genislik/26)];
             }
-        }, 150);
+
+            if(genislik >= 100) {
+                clearInterval(interval);
+                bitir(tip, kadi);
+            }
+        }, 50); // Hız ayarı
     }
 
-    function goster(user) {
-        document.getElementById("ana-ekran").style.display = "none";
-        document.getElementById("sonuc-ekrani").style.display = "block";
-        document.getElementById("sergilenen-ad").innerText = "@" + user;
-        document.getElementById("e-oran").innerText = "%" + (Math.random() * 8 + 2).toFixed(1);
-        document.getElementById("p-guc").innerText = "%" + Math.floor(Math.random() * 40 + 60);
+    function bitir(tip, kadi) {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("btnAnaliz").disabled = false;
+        document.getElementById("btnTakipci").disabled = false;
+        document.getElementById("pBar").style.width = "0%";
+
+        let sonucDiv = document.getElementById("sonuc");
+        sonucDiv.style.display = "block";
+
+        if(tip === 'analiz') {
+            sonucDiv.innerHTML = `
+                <b style="color:#fdf497">@${kadi} Analiz Raporu:</b><br><br>
+                👤 Takipçi: ${Math.floor(Math.random()*50000+1000).toLocaleString()}<br>
+                📈 Etkileşim: %${(Math.random()*10+1).toFixed(1)}<br>
+                🌟 Skor: 10 üzerinden ${(Math.random()*3+7).toFixed(1)}
+            `;
+        } else {
+            sonucDiv.innerHTML = `<b style="color:#00c853">BAŞARILI!</b><br><br>@${kadi} hesabına 250 adet simülasyon takipçisi başarıyla tanımlandı.`;
+        }
     }
 </script>
 
