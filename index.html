@@ -3,20 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Instagram Anlık Analiz</title>
-<link rel="stylesheet" href="stil.css">
 </head>
 <body>
 
-<div class="box">
+<h1>Instagram Anlık Analiz</h1>
 
-<h2>Instagram Anlık Analiz</h2>
+<input type="text" id="kullanici" placeholder="Kullanıcı adı gir">
+<button onclick="analiz()">Analiz Et</button>
 
-<input type="text" id="username" placeholder="Kullanıcı adı gir">
+<script>
+function analiz(){
+    let k = document.getElementById("kullanici").value;
 
-<button onclick="git()">Analiz Et</button>
-
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+    if(k==""){
+        alert("Kullanıcı adı gi
