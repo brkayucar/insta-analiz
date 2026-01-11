@@ -1,40 +1,43 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Instagram Analiz</title>
 <link rel="stylesheet" href="stil.css">
 </head>
-
 <body>
 
-<div class="container">
+<div class="kutu">
+<h2>Instagram Analiz</h2>
 
-<h1>📊 Instagram Analiz Aracı</h1>
-<p>Kullanıcı adını gir, etkileşimi hesapla</p>
+<input type="text" id="kadi" placeholder="Instagram kullanıcı adı">
+<br><br>
+<button onclick="analiz()">ANALİZ ET</button>
 
-<input type="text" id="kadi" placeholder="@kullaniciadi">
-
-<button onclick="analiz()">Analiz Et</button>
-
-<div id="sonuc" class="sonuc"></div>
-
+<div id="sonuc"></div>
 </div>
 
 <script>
 function analiz(){
+
 let kadi = document.getElementById("kadi").value;
+
 if(kadi==""){
 alert("Kullanıcı adı gir!");
 return;
 }
 
+let takipci = Math.floor(Math.random()*50000)+1000;
+let takip = Math.floor(Math.random()*1000)+50;
+let etkilesim = (Math.random()*10).toFixed(2);
+
 document.getElementById("sonuc").innerHTML = `
-<h3>🔍 ${kadi}</h3>
-<p>Takipçi: 12.450</p>
-<p>Takip: 430</p>
-<p>Etkileşim: %4.8</p>
-<p>Hesap Durumu: Aktif ✅</p>
+<hr>
+<b>${kadi}</b><br><br>
+Takipçi: ${takipci}<br>
+Takip: ${takip}<br>
+Etkileşim: %${etkilesim}<br>
+Hesap durumu: Aktif
 `;
 }
 </script>
