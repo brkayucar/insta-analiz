@@ -2,56 +2,152 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Bukogram - Analiz</title>
-    <link rel="stylesheet" href="stil.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bukogram - Modern Analiz</title>
+    <style>
+        /* TÜM TASARIM BURADA */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* İstediğin Instagram Renkli Arka Plan */
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .kutu {
+            background: rgba(18, 18, 18, 0.95); /* Koyu Modern Kutu */
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            width: 320px;
+            color: white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 40px;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .alt { font-size: 13px; opacity: 0.7; margin-bottom: 25px; }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 15px;
+            background: #252525;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            background: linear-gradient(45deg, #f09433, #dc2743);
+            margin-bottom: 10px;
+        }
+
+        button:hover { transform: scale(1.03); }
+
+        .yesil { 
+            background: linear-gradient(45deg, #00c853, #b2ff59); 
+            color: #000; 
+        }
+
+        .loading-bar {
+            width: 100%; height: 6px; background: #333; border-radius: 10px;
+            margin: 20px 0; display: none; overflow: hidden;
+        }
+        .progress {
+            width: 0%; height: 100%; background: #bc1888; transition: width 0.3s;
+        }
+
+        #sonuc-ekrani { display: none; }
+        .sonuc-kart { 
+            background: rgba(255,255,255,0.05); 
+            padding: 15px; 
+            border-radius: 15px; 
+            text-align: left;
+            border-left: 4px solid #f09433;
+        }
+    </style>
 </head>
 <body>
 
 <div class="kutu">
-    <h1 class="logo">Bukogram</h1>
-    <p class="alt">Instagram Analiz & Simülasyon</p>
+    <div id="ana-ekran">
+        <h1 class="logo">Bukogram</h1>
+        <p class="alt">Instagram Analiz & Simülasyon</p>
+        
+        <input type="text" id="username" placeholder="Instagram kullanıcı adı">
+        
+        <div class="loading-bar" id="lBar">
+            <div class="progress" id="pBar"></div>
+        </div>
 
-    <p class="uyari">⚠ Demo: Gerçek işlem yapmaz.</p>
-
-    <input type="text" id="username" placeholder="Instagram kullanıcı adı">
-
-    <div class="loading-bar" id="lBar">
-        <div class="progress" id="pBar"></div>
+        <button onclick="calistir()">ANALİZ ET</button>
+        <button class="yesil" onclick="alert('Takipçi gönderimi simüle ediliyor...')">TAKİPÇİ GÖNDER</button>
     </div>
 
-    <button onclick="git()">ANALİZ ET</button>
-    <button class="yesil" onclick="alert('Takipçi simülasyonu başlatıldı!')">TAKİPÇİ GÖNDER</button>
-
-    <a href="premium.html" class="premium">⭐ PREMIUM'A GEÇ</a>
-
-    <div class="reklam">
-        <p style="margin:0; opacity:0.6;">📢 Reklam Alanı</p>
+    <div id="sonuc-ekrani">
+        <h1 class="logo">Bukogram</h1>
+        <h2 id="sergilenen-ad" style="color: #fdf497; margin-bottom: 20px;"></h2>
+        <div class="sonuc-kart">
+            <p>📊 Etkileşim: <span id="e-oran">%0</span></p>
+            <p>🔥 Profil Gücü: <span id="p-guc">%0</span></p>
+            <p>✅ Durum: <span style="color: #00c853;">Aktif</span></p>
+        </div>
+        <button style="margin-top: 20px;" onclick="location.reload()">YENİ ANALİZ</button>
     </div>
 </div>
 
 <script>
-function git() {
-    let user = document.getElementById("username").value;
-    if(user == "") {
-        alert("Lütfen kullanıcı adı girin!");
-        return;
+    function calistir() {
+        const user = document.getElementById("username").value;
+        if(!user) { alert("Lütfen kullanıcı adı girin!"); return; }
+
+        document.getElementById("lBar").style.display = "block";
+        let p = document.getElementById("pBar");
+        let w = 0;
+
+        let interval = setInterval(() => {
+            w += 10;
+            p.style.width = w + "%";
+            if(w >= 100) {
+                clearInterval(interval);
+                goster(user);
+            }
+        }, 150);
     }
 
-    // Yükleme barı simülasyonu
-    document.getElementById("lBar").style.display = "block";
-    let p = document.getElementById("pBar");
-    let genislik = 0;
-    
-    let interval = setInterval(() => {
-        if(genislik >= 100) {
-            clearInterval(interval);
-            window.location.href = "sonuc.html?u=" + user;
-        } else {
-            genislik += 10;
-            p.style.width = genislik + "%";
-        }
-    }, 200);
-}
+    function goster(user) {
+        document.getElementById("ana-ekran").style.display = "none";
+        document.getElementById("sonuc-ekrani").style.display = "block";
+        document.getElementById("sergilenen-ad").innerText = "@" + user;
+        document.getElementById("e-oran").innerText = "%" + (Math.random() * 8 + 2).toFixed(1);
+        document.getElementById("p-guc").innerText = "%" + Math.floor(Math.random() * 40 + 60);
+    }
 </script>
 
 </body>
