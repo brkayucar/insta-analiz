@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Analiz Sonuç</title>
+</head>
+<body>
+
+<h2>Analiz Sonucu</h2>
+
+<p id="sonuc"></p>
+
+<script>
+let url = new URLSearchParams(window.location.search);
+let user = url.get("u");
+
+document.getElementById("sonuc").innerHTML =
+"Kullanıcı: <b>"+user+"</b><br>Analiz hazırlanıyor...";
+</script>
+
+</body>
+</html>
+
 
