@@ -2,19 +2,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Instagram Analiz</title>
+<title>Bukogram</title>
 <link rel="stylesheet" href="stil.css">
 </head>
 <body>
 
 <div class="kutu">
-<h2>Instagram Analiz</h2>
+
+<h1 class="logo">Bukogram</h1>
+<p class="alt">Instagram Analiz Aracı</p>
 
 <input type="text" id="kadi" placeholder="Instagram kullanıcı adı">
-<br><br>
+
 <button onclick="analiz()">ANALİZ ET</button>
 
+<div id="loading" class="loading">Analiz ediliyor...</div>
+
 <div id="sonuc"></div>
+
 </div>
 
 <script>
@@ -27,18 +32,36 @@ alert("Kullanıcı adı gir!");
 return;
 }
 
+document.getElementById("sonuc").innerHTML="";
+document.getElementById("loading").style.display="block";
+
+setTimeout(()=>{
+
+document.getElementById("loading").style.display="none";
+
 let takipci = Math.floor(Math.random()*50000)+1000;
 let takip = Math.floor(Math.random()*1000)+50;
 let etkilesim = (Math.random()*10).toFixed(2);
+let bars = Math.floor(Math.random()*80)+20;
 
 document.getElementById("sonuc").innerHTML = `
 <hr>
-<b>${kadi}</b><br><br>
+<b>@${kadi}</b><br><br>
+
 Takipçi: ${takipci}<br>
 Takip: ${takip}<br>
-Etkileşim: %${etkilesim}<br>
-Hesap durumu: Aktif
+Etkileşim: %${etkilesim}<br><br>
+
+<b>Aktiflik Seviyesi</b>
+<div class="grafik">
+<div style="width:${bars}%"></div>
+</div>
+
+<p>Hesap durumu: <span class="aktif">Aktif</span></p>
 `;
+
+},2000);
+
 }
 </script>
 
