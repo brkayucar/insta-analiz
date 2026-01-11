@@ -2,36 +2,40 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>InstaBoost</title>
+<title>Instagram Analiz</title>
 <link rel="stylesheet" href="stil.css">
 </head>
+
 <body>
 
 <div class="container">
 
-<h1>📈 InstaBoost</h1>
-<p>Instagram hesabını analiz et, büyüt!</p>
+<h1>📊 Instagram Analiz Aracı</h1>
+<p>Kullanıcı adını gir, etkileşimi hesapla</p>
 
-<input type="text" id="kullanici" placeholder="Instagram kullanıcı adı">
+<input type="text" id="kadi" placeholder="@kullaniciadi">
 
 <button onclick="analiz()">Analiz Et</button>
 
-<footer>
-Ücretsiz analiz aracı
-</footer>
+<div id="sonuc" class="sonuc"></div>
 
 </div>
 
 <script>
 function analiz(){
-let k = document.getElementById("kullanici").value;
-
-if(k==""){
+let kadi = document.getElementById("kadi").value;
+if(kadi==""){
 alert("Kullanıcı adı gir!");
 return;
 }
 
-window.location.href="sonuc.html?u="+k;
+document.getElementById("sonuc").innerHTML = `
+<h3>🔍 ${kadi}</h3>
+<p>Takipçi: 12.450</p>
+<p>Takip: 430</p>
+<p>Etkileşim: %4.8</p>
+<p>Hesap Durumu: Aktif ✅</p>
+`;
 }
 </script>
 
