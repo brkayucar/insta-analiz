@@ -3,24 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Analiz Sonucu</title>
+<link rel="stylesheet" href="stil.css">
 </head>
 <body>
 
-<h2>Analiz Sonucu</h2>
+<div class="container">
+
+<h2>📊 Analiz Sonucu</h2>
 
 <p id="sonuc"></p>
 
-<script>
-let url = new URL(window.location.href);
-let kullanici = url.searchParams.get("u");
+</div>
 
-document.getElementById("sonuc").innerHTML =
-"<b>" + kullanici + "</b> kullanıcısı analiz ediliyor...<br><br>" +
-"📌 Takipçi artış önerileri:<br>" +
-"- Reels paylaş<br>" +
-"- Akşam 20:00-23:00 arası post at<br>" +
-"- Story aktif kullan<br>" +
-"- Hashtag doğru seç<br>";
+<script>
+let url = new URLSearchParams(window.location.search);
+let user = url.get("u");
+
+document.getElementById("sonuc").innerHTML=
+"<b>@"+user+"</b><br><br>"+
+"🔥 Öneriler:<br>"+
+"• Reels paylaş<br>"+
+"• Akşam 20:00-23:00 aktif ol<br>"+
+"• Story günlük at<br>"+
+"• 5-10 hashtag kullan<br>";
 </script>
 
 </body>
