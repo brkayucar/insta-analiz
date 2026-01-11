@@ -1,77 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>Bukogram</title>
-<link rel="stylesheet" href="stil.css">
+    <meta charset="UTF-8">
+    <title>Bukogram - Analiz</title>
+    <link rel="stylesheet" href="stil.css">
 </head>
 <body>
 
 <div class="kutu">
+    <h1 class="logo">Bukogram</h1>
+    <p class="alt">Instagram Analiz & Simülasyon</p>
 
-<h1 class="logo">Bukogram</h1>
-<p class="alt">Instagram Analiz & Simülasyon Aracı</p>
+    <p class="uyari">⚠ Demo: Gerçek işlem yapmaz.</p>
 
-<p class="uyari">⚠ Bu site demo amaçlıdır. Gerçek takipçi göndermez.</p>
+    <input type="text" id="username" placeholder="Instagram kullanıcı adı">
 
-<input type="text" id="kadi" placeholder="Instagram kullanıcı adı">
+    <div class="loading-bar" id="lBar">
+        <div class="progress" id="pBar"></div>
+    </div>
 
-<button onclick="analiz()">ANALİZ ET</button>
-<button class="yesil" onclick="takipci()">TAKİPÇİ GÖNDER</button>
+    <button onclick="git()">ANALİZ ET</button>
+    <button class="yesil" onclick="alert('Takipçi simülasyonu başlatıldı!')">TAKİPÇİ GÖNDER</button>
 
-<div id="loading" class="loading">İşlem yapılıyor...</div>
-<div id="sonuc"></div>
+    <a href="premium.html" class="premium">⭐ PREMIUM'A GEÇ</a>
 
-<a href="premium.html" class="premium">⭐ PREMIUM'A GEÇ</a>
-
-<div class="reklam">
-<p>📢 Reklam Alanı</p>
-<p>Buraya reklam koyabilirsin</p>
-</div>
-
+    <div class="reklam">
+        <p style="margin:0; opacity:0.6;">📢 Reklam Alanı</p>
+    </div>
 </div>
 
 <script>
-function analiz(){
+function git() {
+    let user = document.getElementById("username").value;
+    if(user == "") {
+        alert("Lütfen kullanıcı adı girin!");
+        return;
+    }
 
-let kadi = document.getElementById("kadi").value;
-if(kadi==""){alert("Kullanıcı adı gir!");return;}
-
-document.getElementById("sonuc").innerHTML="";
-document.getElementById("loading").style.display="block";
-
-setTimeout(()=>{
-
-document.getElementById("loading").style.display="none";
-
-let takipci = Math.floor(Math.random()*50000)+1000;
-let etkilesim = (Math.random()*10).toFixed(2);
-
-document.getElementById("sonuc").innerHTML = `
-<hr>
-<b>@${kadi}</b><br><br>
-Takipçi: ${takipci}<br>
-Etkileşim: %${etkilesim}<br>
-Durum: Aktif
-`;
-
-},2000);
-}
-
-function takipci(){
-
-let kadi = document.getElementById("kadi").value;
-if(kadi==""){alert("Kullanıcı adı gir!");return;}
-
-document.getElementById("loading").style.display="block";
-
-setTimeout(()=>{
-
-document.getElementById("loading").style.display="none";
-
-alert("🎉 Simülasyon: @"+kadi+" hesabına +250 takipçi gönderildi!");
-
-},3000);
+    // Yükleme barı simülasyonu
+    document.getElementById("lBar").style.display = "block";
+    let p = document.getElementById("pBar");
+    let genislik = 0;
+    
+    let interval = setInterval(() => {
+        if(genislik >= 100) {
+            clearInterval(interval);
+            window.location.href = "sonuc.html?u=" + user;
+        } else {
+            genislik += 10;
+            p.style.width = genislik + "%";
+        }
+    }, 200);
 }
 </script>
 
