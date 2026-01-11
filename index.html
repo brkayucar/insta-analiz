@@ -10,15 +10,24 @@
 <div class="kutu">
 
 <h1 class="logo">Bukogram</h1>
-<p class="alt">Instagram Analiz Aracı</p>
+<p class="alt">Instagram Analiz & Simülasyon Aracı</p>
+
+<p class="uyari">⚠ Bu site demo amaçlıdır. Gerçek takipçi göndermez.</p>
 
 <input type="text" id="kadi" placeholder="Instagram kullanıcı adı">
 
 <button onclick="analiz()">ANALİZ ET</button>
+<button class="yesil" onclick="takipci()">TAKİPÇİ GÖNDER</button>
 
-<div id="loading" class="loading">Analiz ediliyor...</div>
-
+<div id="loading" class="loading">İşlem yapılıyor...</div>
 <div id="sonuc"></div>
+
+<a href="premium.html" class="premium">⭐ PREMIUM'A GEÇ</a>
+
+<div class="reklam">
+<p>📢 Reklam Alanı</p>
+<p>Buraya reklam koyabilirsin</p>
+</div>
 
 </div>
 
@@ -26,11 +35,7 @@
 function analiz(){
 
 let kadi = document.getElementById("kadi").value;
-
-if(kadi==""){
-alert("Kullanıcı adı gir!");
-return;
-}
+if(kadi==""){alert("Kullanıcı adı gir!");return;}
 
 document.getElementById("sonuc").innerHTML="";
 document.getElementById("loading").style.display="block";
@@ -40,28 +45,33 @@ setTimeout(()=>{
 document.getElementById("loading").style.display="none";
 
 let takipci = Math.floor(Math.random()*50000)+1000;
-let takip = Math.floor(Math.random()*1000)+50;
 let etkilesim = (Math.random()*10).toFixed(2);
-let bars = Math.floor(Math.random()*80)+20;
 
 document.getElementById("sonuc").innerHTML = `
 <hr>
 <b>@${kadi}</b><br><br>
-
 Takipçi: ${takipci}<br>
-Takip: ${takip}<br>
-Etkileşim: %${etkilesim}<br><br>
-
-<b>Aktiflik Seviyesi</b>
-<div class="grafik">
-<div style="width:${bars}%"></div>
-</div>
-
-<p>Hesap durumu: <span class="aktif">Aktif</span></p>
+Etkileşim: %${etkilesim}<br>
+Durum: Aktif
 `;
 
 },2000);
+}
 
+function takipci(){
+
+let kadi = document.getElementById("kadi").value;
+if(kadi==""){alert("Kullanıcı adı gir!");return;}
+
+document.getElementById("loading").style.display="block";
+
+setTimeout(()=>{
+
+document.getElementById("loading").style.display="none";
+
+alert("🎉 Simülasyon: @"+kadi+" hesabına +250 takipçi gönderildi!");
+
+},3000);
 }
 </script>
 
