@@ -4,17 +4,30 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:#111;
-color:white;
+background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
 font-family:Arial;
 }
 
 .kutu{
-background:#222;
+background:rgba(0,0,0,0.8);
 padding:30px;
-border-radius:10px;
+border-radius:15px;
 text-align:center;
-width:300px;
+width:320px;
+color:white;
+box-shadow:0 0 20px black;
+}
+
+.logo{
+margin:0;
+font-size:32px;
+color:#fcb045;
+}
+
+.alt{
+font-size:13px;
+opacity:0.8;
+margin-bottom:20px;
 }
 
 input{
@@ -25,7 +38,7 @@ border-radius:5px;
 }
 
 button{
-margin-top:10px;
+margin-top:15px;
 width:100%;
 padding:10px;
 background:#fd1d1d;
@@ -38,4 +51,35 @@ cursor:pointer;
 
 button:hover{
 background:#c10f0f;
+}
+
+.loading{
+margin-top:15px;
+display:none;
+animation:yan 1s infinite;
+}
+
+@keyframes yan{
+0%{opacity:0.2;}
+50%{opacity:1;}
+100%{opacity:0.2;}
+}
+
+.grafik{
+width:100%;
+height:15px;
+background:#333;
+border-radius:10px;
+margin:10px 0;
+overflow:hidden;
+}
+
+.grafik div{
+height:100%;
+background:#fcb045;
+}
+
+.aktif{
+color:#0f0;
+font-weight:bold;
 }
