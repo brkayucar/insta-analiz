@@ -1,19 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Instagram Anlık Analiz</title>
+<title>InstaBoost</title>
+<link rel="stylesheet" href="stil.css">
 </head>
 <body>
 
-<h1>Instagram Anlık Analiz</h1>
+<div class="container">
 
-<input type="text" id="kullanici" placeholder="Kullanıcı adı gir">
+<h1>📈 InstaBoost</h1>
+<p>Instagram hesabını analiz et, büyüt!</p>
+
+<input type="text" id="kullanici" placeholder="Instagram kullanıcı adı">
+
 <button onclick="analiz()">Analiz Et</button>
+
+<footer>
+Ücretsiz analiz aracı
+</footer>
+
+</div>
 
 <script>
 function analiz(){
-    let k = document.getElementById("kullanici").value;
+let k = document.getElementById("kullanici").value;
 
-    if(k==""){
-        alert("Kullanıcı adı gi
+if(k==""){
+alert("Kullanıcı adı gir!");
+return;
+}
+
+window.location.href="sonuc.html?u="+k;
+}
+</script>
+
+</body>
+</html>
